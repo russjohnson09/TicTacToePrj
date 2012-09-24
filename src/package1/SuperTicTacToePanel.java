@@ -8,7 +8,6 @@ import java.awt.event.ActionListener;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComponent;
-import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
@@ -17,10 +16,6 @@ public class SuperTicTacToePanel extends JPanel {
 	private Cell[][] iBoard;
 	private ImageIcon xIcon;
 	private ImageIcon oIcon;
-	private ImageIcon emptyIcon;
-
-	JMenuItem gameItem;
-	JMenuItem quitItem;
 
 	private SuperTicTacToeGame game;
 
@@ -36,8 +31,7 @@ public class SuperTicTacToePanel extends JPanel {
 
 	SuperTicTacToePanel() {
 
-		String player;
-		player = JOptionPane
+		String player = JOptionPane
 				.showInputDialog("Please enter player to move first. (X or O)");
 		if (player.equalsIgnoreCase("X")) {
 			int playerint = 1;
@@ -98,9 +92,8 @@ public class SuperTicTacToePanel extends JPanel {
 			for (int col = 0; col < 3; col++) {
 				if (iBoard[row][col] == Cell.O) {
 					board[row][col].setIcon(oIcon);
-					if (iBoard[row][col] == Cell.X) {
-						board[row][col].setIcon(xIcon);
-					}
+				} else if (iBoard[row][col] == Cell.X) {
+					board[row][col].setIcon(xIcon);
 				}
 			}
 		}
@@ -117,8 +110,10 @@ public class SuperTicTacToePanel extends JPanel {
 			for (int row = 0; row < 3; row++) {
 				for (int col = 0; col < 3; col++) {
 					if (board[row][col] == comp) {
-						game.select(row, col);
-						board[row][col].removeActionListener(this);
+						if (!game.select(row, col)) {
+							JOptionPane.showMessageDialog(null,
+									"Not a valid move.");
+						}
 
 					}
 				}

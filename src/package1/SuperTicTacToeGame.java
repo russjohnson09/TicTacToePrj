@@ -33,14 +33,24 @@ public class SuperTicTacToeGame {
 
 	}
 
-	public void select(int row, int col) {
-		if (player == 0) {
-			board[row][col] = Cell.O;
-		} else {
-			board[row][col] = Cell.X;
+	public boolean select(int row, int col) {
+		boolean isvalid;
+		if (board[row][col] == Cell.EMPTY) {
+			if (player == 0) {
+				board[row][col] = Cell.O;
+			} else {
+				board[row][col] = Cell.X;
+			}
+
+			isvalid = true;
+			nextPlayer();
 		}
 
-		nextPlayer();
+		else {
+			isvalid = false;
+
+		}
+		return isvalid;
 
 	}
 
@@ -54,10 +64,6 @@ public class SuperTicTacToeGame {
 
 	private void nextPlayer() {
 		player = (player + 1) % 2;
-	}
-
-	public int getCurrentPlayer() {
-		return player;
 	}
 
 	public GameStatus getGameStatus() {
