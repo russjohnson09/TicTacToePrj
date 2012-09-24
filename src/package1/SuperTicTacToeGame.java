@@ -5,34 +5,55 @@ public class SuperTicTacToeGame {
 	private Cell[][] board;
 	private GameStatus status;
 	private int player;
+	private int size;
 
 	public SuperTicTacToeGame() {
 		status = GameStatus.IN_PROGRESS;
 		board = new Cell[3][3];
 		player = 0;
+		this.size = 3;
 		reset();
 	}
 
 	public SuperTicTacToeGame(int player) {
+		status = GameStatus.IN_PROGRESS;
+		board = new Cell[3][3];
 		this.player = player;
+		this.size = 3;
+		reset();
+
+	}
+
+	public SuperTicTacToeGame(int player, int size) {
+		status = GameStatus.IN_PROGRESS;
+		board = new Cell[size][size];
+		this.player = player;
+		this.size = size;
+		reset();
 
 	}
 
 	public void select(int row, int col) {
-		board[row][col] = Cell.O;
+		if (player == 0) {
+			board[row][col] = Cell.O;
+		} else {
+			board[row][col] = Cell.X;
+		}
+
+		nextPlayer();
+
 	}
 
 	public void reset() {
-		for (int row = 0; row < 3; row++) {
-			for (int col = 0; col < 3; col++) {
+		for (int row = 0; row < size; row++) {
+			for (int col = 0; col < size; col++) {
 				board[row][col] = Cell.EMPTY;
 			}
 		}
 	}
 
-	public int nextPlayer() {
+	private void nextPlayer() {
 		player = (player + 1) % 2;
-		return player;
 	}
 
 	public int getCurrentPlayer() {

@@ -82,9 +82,9 @@ public class SuperTicTacToePanel extends JPanel {
 			}
 		}
 
-		setLayout(new BorderLayout());
-		add(BorderLayout.NORTH, top);
-		add(BorderLayout.CENTER, bottom);
+		this.setLayout(new BorderLayout());
+		this.add(BorderLayout.NORTH, top);
+		this.add(BorderLayout.CENTER, bottom);
 
 		game = new SuperTicTacToeGame();
 		iBoard = game.getBoard();
@@ -94,7 +94,7 @@ public class SuperTicTacToePanel extends JPanel {
 	private void displayBoard() {
 		iBoard = game.getBoard();
 
-		for (int row = 0; row < 3; row++)
+		for (int row = 0; row < 3; row++) {
 			for (int col = 0; col < 3; col++) {
 				if (iBoard[row][col] == Cell.O) {
 					board[row][col].setIcon(oIcon);
@@ -103,6 +103,7 @@ public class SuperTicTacToePanel extends JPanel {
 					}
 				}
 			}
+		}
 	}
 
 	private class ButtonListener implements ActionListener {
@@ -116,6 +117,8 @@ public class SuperTicTacToePanel extends JPanel {
 			for (int row = 0; row < 3; row++) {
 				for (int col = 0; col < 3; col++) {
 					if (board[row][col] == comp) {
+						game.select(row, col);
+						board[row][col].removeActionListener(this);
 
 					}
 				}
