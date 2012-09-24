@@ -7,6 +7,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JComponent;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -85,6 +86,23 @@ public class SuperTicTacToePanel extends JPanel {
 		add(BorderLayout.NORTH, top);
 		add(BorderLayout.CENTER, bottom);
 
+		game = new SuperTicTacToeGame();
+		iBoard = game.getBoard();
+
+	}
+
+	private void displayBoard() {
+		iBoard = game.getBoard();
+
+		for (int row = 0; row < 3; row++)
+			for (int col = 0; col < 3; col++) {
+				if (iBoard[row][col] == Cell.O) {
+					board[row][col].setIcon(oIcon);
+					if (iBoard[row][col] == Cell.X) {
+						board[row][col].setIcon(xIcon);
+					}
+				}
+			}
 	}
 
 	private class ButtonListener implements ActionListener {
@@ -93,7 +111,34 @@ public class SuperTicTacToePanel extends JPanel {
 		// --------------------------------------------------------------
 		public void actionPerformed(ActionEvent event) {
 
+			JComponent comp = (JComponent) event.getSource();
+
+			for (int row = 0; row < 3; row++) {
+				for (int col = 0; col < 3; col++) {
+					if (board[row][col] == comp) {
+
+					}
+				}
+			}
+
+			if (quitButton == comp) {
+				int option = JOptionPane.showConfirmDialog(null,
+						"Are you sure?");
+				if (option == 0) {
+					System.exit(1);
+				}
+			}
+			if (undo == comp) {
+
+			}
+			if (load == comp) {
+			}
+			if (save == comp) {
+			}
+
+			displayBoard();
 		}
 
 	}
+
 }

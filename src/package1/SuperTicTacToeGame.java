@@ -46,7 +46,7 @@ public class SuperTicTacToeGame {
 		return GameStatus.IN_PROGRESS;
 	}
 
-	public Cell[][] getboard() {
+	public Cell[][] getBoard() {
 		return board;
 	}
 
