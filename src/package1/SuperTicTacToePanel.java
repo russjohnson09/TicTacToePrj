@@ -28,21 +28,20 @@ public class SuperTicTacToePanel extends JPanel {
 	private JButton undo;
 	private JButton load;
 	private JButton save;
+	private int size;
 
 	SuperTicTacToePanel() {
 
-		String size = JOptionPane.showInputDialog(null,
+		String sizeinput = JOptionPane.showInputDialog(null,
 				"Enter in the size of the board: (Between 3 and 9 inclusive.");
 
-		int sizeint;
-
 		try {
-			sizeint = Integer.parseInt(size);
-			assert (2 < sizeint && sizeint < 10);
+			size = Integer.parseInt(sizeinput);
+			assert (2 < size && size < 10);
 		} catch (Throwable e) {
 			JOptionPane.showMessageDialog(null,
 					"Invalid input. Default 3 will be used.");
-			sizeint = 3;
+			size = 3;
 		}
 
 		String player = JOptionPane.showInputDialog("Who moves first? X or O");
@@ -67,7 +66,7 @@ public class SuperTicTacToePanel extends JPanel {
 		top = new JPanel();
 		top.setLayout(new GridLayout(1, 4));
 		bottom = new JPanel();
-		bottom.setLayout(new GridLayout(3, 3));
+		bottom.setLayout(new GridLayout(size, size));
 
 		quitButton = new JButton("Quit");
 		top.add(quitButton);
@@ -84,10 +83,10 @@ public class SuperTicTacToePanel extends JPanel {
 		load.addActionListener(listener);
 		save.addActionListener(listener);
 
-		board = new JButton[3][3];
+		board = new JButton[size][size];
 
-		for (int row = 0; row < 3; row++) {
-			for (int col = 0; col < 3; col++) {
+		for (int row = 0; row < size; row++) {
+			for (int col = 0; col < size; col++) {
 				board[row][col] = new JButton("");
 				bottom.add(board[row][col]);
 				board[row][col].addActionListener(listener);
@@ -98,7 +97,7 @@ public class SuperTicTacToePanel extends JPanel {
 		this.add(BorderLayout.NORTH, top);
 		this.add(BorderLayout.CENTER, bottom);
 
-		game = new SuperTicTacToeGame(playerint, sizeint);
+		game = new SuperTicTacToeGame(playerint, size);
 		iBoard = game.getBoard();
 
 	}
@@ -106,8 +105,8 @@ public class SuperTicTacToePanel extends JPanel {
 	private void displayBoard() {
 		iBoard = game.getBoard();
 
-		for (int row = 0; row < 3; row++) {
-			for (int col = 0; col < 3; col++) {
+		for (int row = 0; row < size; row++) {
+			for (int col = 0; col < size; col++) {
 				if (iBoard[row][col] == Cell.O) {
 					board[row][col].setIcon(oIcon);
 				} else if (iBoard[row][col] == Cell.X) {
@@ -125,8 +124,8 @@ public class SuperTicTacToePanel extends JPanel {
 
 			JComponent comp = (JComponent) event.getSource();
 
-			for (int row = 0; row < 3; row++) {
-				for (int col = 0; col < 3; col++) {
+			for (int row = 0; row < size; row++) {
+				for (int col = 0; col < size; col++) {
 					if (board[row][col] == comp) {
 						if (!game.select(row, col)) {
 							JOptionPane.showMessageDialog(null,

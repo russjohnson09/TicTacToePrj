@@ -12,22 +12,22 @@ public class SuperTicTacToeGame {
 	// private ArrayList<Point> moves;
 	private Stack<Point> moves;
 
-	public SuperTicTacToeGame() {
-		status = GameStatus.IN_PROGRESS;
-		board = new Cell[3][3];
-		player = 0;
-		this.size = 3;
-		reset();
-	}
-
-	public SuperTicTacToeGame(int player) {
-		status = GameStatus.IN_PROGRESS;
-		board = new Cell[3][3];
-		this.player = player;
-		this.size = 3;
-		reset();
-
-	}
+	// public SuperTicTacToeGame() {
+	// status = GameStatus.IN_PROGRESS;
+	// board = new Cell[3][3];
+	// player = 0;
+	// this.size = 3;
+	// reset();
+	// }
+	//
+	// public SuperTicTacToeGame(int player) {
+	// status = GameStatus.IN_PROGRESS;
+	// board = new Cell[3][3];
+	// this.player = player;
+	// this.size = 3;
+	// reset();
+	//
+	// }
 
 	public SuperTicTacToeGame(int player, int size) {
 		status = GameStatus.IN_PROGRESS;
