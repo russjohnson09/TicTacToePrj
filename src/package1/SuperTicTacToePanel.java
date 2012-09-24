@@ -156,14 +156,14 @@ public class SuperTicTacToePanel extends JPanel {
 					System.exit(1);
 				}
 			}
-			if (undo == comp) {
-				if (game.undoIsValid()) {
-					game.undo();
-				} else {
-					JOptionPane.showMessageDialog(null, "Cannot undo.");
-				}
-
-			}
+			// if (undo == comp) {
+			// if (game.undoIsValid()) {
+			// game.undo();
+			// } else {
+			// JOptionPane.showMessageDialog(null, "Cannot undo.");
+			// }
+			//
+			// }
 			if (load == comp) {
 			}
 			if (save == comp) {
