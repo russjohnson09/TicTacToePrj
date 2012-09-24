@@ -1,11 +1,16 @@
 package package1;
 
+import java.awt.Point;
+import java.util.Stack;
+
 public class SuperTicTacToeGame {
 
 	private Cell[][] board;
 	private GameStatus status;
 	private int player;
 	private int size;
+	// private ArrayList<Point> moves;
+	private Stack<Point> moves;
 
 	public SuperTicTacToeGame() {
 		status = GameStatus.IN_PROGRESS;
@@ -36,6 +41,11 @@ public class SuperTicTacToeGame {
 	public boolean select(int row, int col) {
 		boolean isvalid;
 		if (board[row][col] == Cell.EMPTY) {
+
+			// Point e = new Point(row, col);
+			// moves.add(e);
+			moves.push(new Point(row, col));
+
 			if (player == 0) {
 				board[row][col] = Cell.O;
 			} else {
@@ -54,6 +64,15 @@ public class SuperTicTacToeGame {
 
 	}
 
+	public void undo() {
+		Point move = moves.pop();
+		board[move.x][move.y] = Cell.EMPTY;
+	}
+
+	public boolean undoIsValid() {
+		return !(moves.isEmpty());
+	}
+
 	public void reset() {
 		for (int row = 0; row < size; row++) {
 			for (int col = 0; col < size; col++) {
@@ -67,6 +86,7 @@ public class SuperTicTacToeGame {
 	}
 
 	public GameStatus getGameStatus() {
+
 		return GameStatus.X_WON;
 		return GameStatus.O_WON;
 		return GameStatus.CATS;

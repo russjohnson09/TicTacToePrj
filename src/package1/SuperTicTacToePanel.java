@@ -31,15 +31,33 @@ public class SuperTicTacToePanel extends JPanel {
 
 	SuperTicTacToePanel() {
 
-		String player = JOptionPane
-				.showInputDialog("Please enter player to move first. (X or O)");
+		String size = JOptionPane.showInputDialog(null,
+				"Enter in the size of the board: (Between 3 and 9 inclusive.");
+
+		int sizeint;
+
+		try {
+			sizeint = Integer.parseInt(size);
+			assert (2 < sizeint && sizeint < 10);
+		} catch (Throwable e) {
+			JOptionPane.showMessageDialog(null,
+					"Invalid input. Default 3 will be used.");
+			sizeint = 3;
+		}
+
+		String player = JOptionPane.showInputDialog("Who moves first? X or O");
+
+		int playerint;
+
 		if (player.equalsIgnoreCase("X")) {
-			int playerint = 1;
+			playerint = 1;
 		}
 		if (player.equalsIgnoreCase("O")) {
-			int playerint = 0;
+			playerint = 0;
 		} else {
-			int playerint = 0;
+			JOptionPane.showMessageDialog(null,
+					"Invalid input. Default X will be used.");
+			playerint = 1;
 
 		}
 
@@ -80,7 +98,7 @@ public class SuperTicTacToePanel extends JPanel {
 		this.add(BorderLayout.NORTH, top);
 		this.add(BorderLayout.CENTER, bottom);
 
-		game = new SuperTicTacToeGame();
+		game = new SuperTicTacToeGame(playerint, sizeint);
 		iBoard = game.getBoard();
 
 	}
@@ -119,6 +137,19 @@ public class SuperTicTacToePanel extends JPanel {
 				}
 			}
 
+			// if (game.getGameStatus() == GameStatus.X_WON) {
+			// JOptionPane.showMessageDialog(null,
+			// "X won.\nThe game will reset");
+			// } else if (game.getGameStatus() == GameStatus.O_WON) {
+			// JOptionPane.showMessageDialog(null,
+			// "O won.\nThe game will reset");
+			//
+			// } else if (game.getGameStatus() == GameStatus.CATS) {
+			// JOptionPane.showMessageDialog(null,
+			// "Both X and O lost.\nThe game will reset");
+			//
+			// }
+
 			if (quitButton == comp) {
 				int option = JOptionPane.showConfirmDialog(null,
 						"Are you sure?");
@@ -127,6 +158,11 @@ public class SuperTicTacToePanel extends JPanel {
 				}
 			}
 			if (undo == comp) {
+				if (game.undoIsValid()) {
+					game.undo();
+				} else {
+					JOptionPane.showMessageDialog(null, "Cannot undo.");
+				}
 
 			}
 			if (load == comp) {
