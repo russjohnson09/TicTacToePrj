@@ -117,9 +117,6 @@ public class SuperTicTacToePanel extends JPanel {
 	}
 
 	private class ButtonListener implements ActionListener {
-		// --------------------------------------------------------------
-		// Updates the counter and label when the button is pushed.
-		// --------------------------------------------------------------
 		public void actionPerformed(ActionEvent event) {
 
 			JComponent comp = (JComponent) event.getSource();
@@ -156,14 +153,14 @@ public class SuperTicTacToePanel extends JPanel {
 					System.exit(1);
 				}
 			}
-			// if (undo == comp) {
-			// if (game.undoIsValid()) {
-			// game.undo();
-			// } else {
-			// JOptionPane.showMessageDialog(null, "Cannot undo.");
-			// }
-			//
-			// }
+			if (undo == comp) {
+				if (game.undoIsValid()) {
+					game.undo();
+				} else {
+					JOptionPane.showMessageDialog(null, "Cannot undo.");
+				}
+
+			}
 			if (load == comp) {
 			}
 			if (save == comp) {
