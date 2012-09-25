@@ -16,6 +16,7 @@ public class SuperTicTacToePanel extends JPanel {
 	private Cell[][] iBoard;
 	private ImageIcon xIcon;
 	private ImageIcon oIcon;
+	private ImageIcon emptyIcon;
 
 	private SuperTicTacToeGame game;
 
@@ -111,6 +112,8 @@ public class SuperTicTacToePanel extends JPanel {
 					board[row][col].setIcon(oIcon);
 				} else if (iBoard[row][col] == Cell.X) {
 					board[row][col].setIcon(xIcon);
+				} else {
+					board[row][col].setIcon(emptyIcon);
 				}
 			}
 		}
@@ -133,18 +136,18 @@ public class SuperTicTacToePanel extends JPanel {
 				}
 			}
 
-			// if (game.getGameStatus() == GameStatus.X_WON) {
-			// JOptionPane.showMessageDialog(null,
-			// "X won.\nThe game will reset");
-			// } else if (game.getGameStatus() == GameStatus.O_WON) {
-			// JOptionPane.showMessageDialog(null,
-			// "O won.\nThe game will reset");
-			//
-			// } else if (game.getGameStatus() == GameStatus.CATS) {
-			// JOptionPane.showMessageDialog(null,
-			// "Both X and O lost.\nThe game will reset");
-			//
-			// }
+			if (game.getGameStatus() == GameStatus.X_WON) {
+				JOptionPane.showMessageDialog(null,
+						"X won.\nThe game will reset");
+			} else if (game.getGameStatus() == GameStatus.O_WON) {
+				JOptionPane.showMessageDialog(null,
+						"O won.\nThe game will reset");
+
+			} else if (game.getGameStatus() == GameStatus.CATS) {
+				JOptionPane.showMessageDialog(null,
+						"Both X and O lost.\nThe game will reset");
+
+			}
 
 			if (quitButton == comp) {
 				int option = JOptionPane.showConfirmDialog(null,

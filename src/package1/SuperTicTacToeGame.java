@@ -9,25 +9,11 @@ public class SuperTicTacToeGame {
 	private int player;
 	private int size;
 
-	// private ArrayList<Point> moves;
-	private Stack<Point> moves = new Stack();
+	private Stack<Point> moves = new Stack<Point>();
 
-	// public SuperTicTacToeGame() {
-	// status = GameStatus.IN_PROGRESS;
-	// board = new Cell[3][3];
-	// player = 0;
-	// this.size = 3;
-	// reset();
-	// }
-	//
-	// public SuperTicTacToeGame(int player) {
-	// status = GameStatus.IN_PROGRESS;
-	// board = new Cell[3][3];
-	// this.player = player;
-	// this.size = 3;
-	// reset();
-	//
-	// }
+	public Stack<Point> getMoves() {
+		return moves;
+	}
 
 	public SuperTicTacToeGame(int player, int size) {
 		board = new Cell[size][size];
@@ -84,10 +70,247 @@ public class SuperTicTacToeGame {
 
 	public GameStatus getGameStatus() {
 
-		return GameStatus.X_WON;
-		return GameStatus.O_WON;
-		return GameStatus.CATS;
+		Cell c;
+		if (player == 0) {
+			c = Cell.O;
+		} else {
+			c = Cell.X;
+		}
+
+		if (horizontalCheck(moves.lastElement(), c)) {
+			if (player == 0) {
+				return GameStatus.O_WON;
+
+			} else {
+				return GameStatus.X_WON;
+			}
+		}
+
+		if (verticalCheck(moves.lastElement(), c)) {
+			if (player == 0) {
+				return GameStatus.O_WON;
+
+			} else {
+				return GameStatus.X_WON;
+			}
+
+		}
+
+		if (diagonalCheck(moves.lastElement(), c)) {
+			if (player == 0) {
+				return GameStatus.O_WON;
+
+			} else {
+				return GameStatus.X_WON;
+			}
+		}
+
+		if (boardIsFull()) {
+			return GameStatus.CATS;
+		}
+
 		return GameStatus.IN_PROGRESS;
+	}
+
+	private boolean diagonalCheck(Point p, Cell c) {
+		int row = p.x;
+		int col = p.y;
+
+		int x = 1;
+
+		int count = 1;
+
+		// checks down and left diagonal
+		while (true) {
+			try {
+				if (board[row - x][col + x] == c) {
+					count++;
+					x++;
+
+					if (count == 3) {
+						return true;
+					}
+				} else {
+					x = 1;
+					break;
+				}
+			}
+
+			catch (Throwable e) {
+				x = 1;
+				break;
+			}
+		}
+
+		while (true) {
+			try {
+				if (board[row + x][col - x] == c) {
+					count++;
+					x++;
+
+					if (count == 3) {
+						return true;
+					}
+				} else {
+					x = 1;
+					break;
+				}
+			} catch (Throwable e) {
+				x = 1;
+				break;
+			}
+		}
+
+		// checks down and right
+		while (true) {
+			try {
+				if (board[row + x][col + x] == c) {
+					count++;
+					x++;
+
+					if (count == 3) {
+						return true;
+					}
+				} else {
+					x = 1;
+					break;
+				}
+			}
+
+			catch (Throwable e) {
+				x = 1;
+				break;
+			}
+		}
+
+		while (true) {
+			try {
+				if (board[row - x][col - x] == c) {
+					count++;
+					x++;
+
+					if (count == 3) {
+						return true;
+					}
+				} else {
+					x = 1;
+					break;
+				}
+			} catch (Throwable e) {
+				x = 1;
+				break;
+			}
+		}
+
+		return false;
+	}
+
+	private boolean verticalCheck(Point p, Cell c) {
+		int row = p.x;
+		int col = p.y;
+
+		int count = 1;
+
+		int x = 1;
+
+		while (true) {
+			try {
+				if (board[row + x][col] == c) {
+					count++;
+					x++;
+					if (count == 3) {
+						return true;
+					}
+				} else {
+					x = 1;
+					break;
+				}
+
+			} catch (Throwable e) {
+				x = 1;
+				break;
+			}
+		}
+
+		while (true) {
+			try {
+				if (board[row - x][col] == c) {
+					count++;
+					x++;
+					if (count == 3) {
+						return true;
+					}
+				} else {
+					break;
+				}
+
+			} catch (Throwable e) {
+				break;
+			}
+		}
+
+		// if (col - 2 > 0) {
+		// for (int co = row - 2; co < size; co++) {
+		// if (board[row][co] == c) {
+		// count++;
+		// if (count == 3) {
+		// return true;
+		// }
+		// } else {
+		// count = 0;
+		// }
+		//
+		// }
+		//
+		// }
+
+		return false;
+	}
+
+	private boolean horizontalCheck(Point p, Cell c) {
+		int row = p.x;
+		int col = p.y;
+
+		int count = 0;
+
+		if (row - 2 > 0) {
+			for (int r = row - 2; r < size; r++) {
+				if (board[r][col] == c) {
+					count++;
+					if (count == 3) {
+						return true;
+					}
+				} else {
+					count = 0;
+				}
+
+			}
+		} else {
+			for (int r = 0; r < size; r++) {
+				if (board[r][col] == c) {
+					count++;
+					if (count == 3) {
+						return true;
+					}
+				} else {
+					count = 0;
+				}
+
+			}
+		}
+
+		return false;
+	}
+
+	private boolean boardIsFull() {
+		for (Cell[] row : board) {
+			for (Cell cell : row) {
+				if (cell == Cell.EMPTY) {
+					return false;
+				}
+			}
+		}
+		return true;
 	}
 
 	public Cell[][] getBoard() {
