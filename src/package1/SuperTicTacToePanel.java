@@ -38,7 +38,10 @@ public class SuperTicTacToePanel extends JPanel {
 
 		try {
 			size = Integer.parseInt(sizeinput);
-			assert (2 < size && size < 10);
+			Throwable e = new Throwable();
+			if (!(2 < size && size < 10)) {
+				throw e;
+			}
 		} catch (Throwable e) {
 			JOptionPane.showMessageDialog(null,
 					"Invalid input. Default 3 will be used.");
@@ -51,8 +54,7 @@ public class SuperTicTacToePanel extends JPanel {
 
 		if (player.equalsIgnoreCase("X")) {
 			playerint = 1;
-		}
-		if (player.equalsIgnoreCase("O")) {
+		} else if (player.equalsIgnoreCase("O")) {
 			playerint = 0;
 		} else {
 			JOptionPane.showMessageDialog(null,
@@ -127,12 +129,16 @@ public class SuperTicTacToePanel extends JPanel {
 			for (int row = 0; row < size; row++) {
 				for (int col = 0; col < size; col++) {
 					if (board[row][col] == comp) {
-						if (!game.select(row, col)) {
+						if (game.isvalid(row, col)) {
+							game.select(row, col);
+						}
+
+						else {
 							JOptionPane.showMessageDialog(null,
 									"Not a valid move.");
 						}
-
 					}
+
 				}
 			}
 
