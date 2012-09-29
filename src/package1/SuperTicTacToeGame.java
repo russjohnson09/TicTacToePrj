@@ -62,29 +62,60 @@ public class SuperTicTacToeGame {
 		Cell pCell;
 		int row = moves.lastElement().x;
 		int col = moves.lastElement().y;
-		if (player == 0){
+		if (player == 0) {
+			pCell = Cell.X;
+		} else {
 			pCell = Cell.O;
+
 		}
-		else{
-			pCell = Cell.X
-			
-		}
-		if (isHorizontal(pCell,row,col) ||
-				isVertical(pCell,row,col)||
-				isDiagonal(pCell,row,col)){
-			if (pCell == Cell.O){
+		if (isHorizontal(pCell, row, col) || isVertical(pCell, row, col)
+				|| isDiagonal(pCell, row, col)) {
+			if (pCell == Cell.O) {
 				return GameStatus.O_WON;
-			}
-			else{
+			} else {
 				return GameStatus.X_WON;
 			}
-		}
-		else if (boardIsFull()) {
+		} else if (boardIsFull()) {
 			return GameStatus.CATS;
-			
-		}
-		else{
+
+		} else {
 			return GameStatus.IN_PROGRESS;
+		}
+	}
+
+	private boolean isDiagonal(Cell pCell, int row, int col) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	private boolean isVertical(Cell pCell, int row, int col) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	private boolean isHorizontal(Cell pCell, int row, int col) {
+		int count = 1;
+		while (true) {
+			col--;
+			if (col > -1 && board[row][col] == pCell) {
+				count++;
+			} else {
+				break;
+			}
+		}
+		col += count;
+		while (true) {
+			col++;
+			if (col < size && board[row][col] == pCell) {
+				count++;
+			} else {
+				break;
+			}
+		}
+		if (count > 2) {
+			return true;
+		} else {
+			return false;
 		}
 	}
 

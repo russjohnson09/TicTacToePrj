@@ -154,6 +154,9 @@ public class SuperTicTacToePanel extends JPanel {
 
 			}
 
+			else {
+			}
+
 			if (quitButton == comp) {
 				int option = JOptionPane.showConfirmDialog(null,
 						"Are you sure?");
