@@ -40,6 +40,32 @@ public class SuperTicTacTest {
 		g.select(0, 2);
 		g.select(2, 2);
 		assertEquals(g.getGameStatus(), GameStatus.O_WON);
+		g = new SuperTicTacToeGame(0, 3);
+		g.select(0, 0);
+		g.select(0, 1);
+		g.select(1, 1);
+		g.select(0, 2);
+		g.select(2, 2);
+		g.undo();
+		g.undo();
+		g.undo();
+		g.undo();
+		g.undo();
+		System.out.println(g.getMoves());
+		g = new SuperTicTacToeGame(0, 3);
+		g.select(0, 0);
+		g.select(0, 1);
+		g.select(1, 1);
+		g.select(0, 2);
+		g.select(2, 2);
+		g.undo();
+		g.undo();
+		g.undo();
+		g.undo();
+		g.undo();
+		g.undo();
+		g.undo();
+		System.out.println(g.getMoves());
 	}
 
 }

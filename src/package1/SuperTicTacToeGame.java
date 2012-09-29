@@ -36,9 +36,11 @@ public class SuperTicTacToeGame {
 	}
 
 	public void undo() {
-		Point move = moves.pop();
-		board[move.x][move.y] = Cell.EMPTY;
-		nextPlayer();
+		if (undoIsValid()) {
+			Point move = moves.pop();
+			board[move.x][move.y] = Cell.EMPTY;
+			nextPlayer();
+		}
 	}
 
 	public boolean undoIsValid() {
