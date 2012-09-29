@@ -38,9 +38,8 @@ public class SuperTicTacToePanel extends JPanel {
 
 		try {
 			size = Integer.parseInt(sizeinput);
-			Throwable e = new Throwable();
 			if (!(2 < size && size < 10)) {
-				throw e;
+				throw new Throwable();
 			}
 		} catch (Throwable e) {
 			JOptionPane.showMessageDialog(null,
