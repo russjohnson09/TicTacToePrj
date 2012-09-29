@@ -12,24 +12,24 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 public class SuperTicTacToePanel extends JPanel {
+
 	private JButton[][] board;
-	private Cell[][] iBoard;
-	private ImageIcon xIcon;
-	private ImageIcon oIcon;
-	private ImageIcon emptyIcon;
-
-	private SuperTicTacToeGame game;
-
-	//
-
-	private JPanel top;
-	private JPanel bottom;
+	private int size;
 
 	private JButton quitButton;
 	private JButton undo;
 	private JButton load;
 	private JButton save;
-	private int size;
+
+	private ImageIcon xIcon = new ImageIcon("x.png");
+	private ImageIcon oIcon = new ImageIcon("o.png");
+	private ImageIcon emptyIcon;
+
+	private SuperTicTacToeGame game;
+	private Cell[][] iBoard;
+
+	private JPanel top;
+	private JPanel bottom;
 
 	SuperTicTacToePanel() {
 
@@ -66,9 +66,6 @@ public class SuperTicTacToePanel extends JPanel {
 					"Invalid input. Default X will be used.");
 			playerint = 1;
 		}
-
-		xIcon = new ImageIcon("x.png");
-		oIcon = new ImageIcon("o.png");
 
 		top = new JPanel();
 		top.setLayout(new GridLayout(1, 4));
@@ -156,55 +153,14 @@ public class SuperTicTacToePanel extends JPanel {
 			for (int row = 0; row < size; row++) {
 				for (int col = 0; col < size; col++) {
 					if (board[row][col] == comp) {
-						if (game.isvalid(row, col)) {
-							game.select(row, col);
-						}
-
-						else {
-							JOptionPane.showMessageDialog(null,
-									"Not a valid move.");
-						}
+						game.select(row, col);
 					}
-
-				}
-			}
-
-			if (game.getGameStatus() == GameStatus.X_WON) {
-				displayBoard();
-				JOptionPane.showMessageDialog(null,
-						"X won.\nThe game will reset");
-				reset();
-			} else if (game.getGameStatus() == GameStatus.O_WON) {
-				displayBoard();
-				JOptionPane.showMessageDialog(null,
-						"O won.\nThe game will reset");
-				reset();
-
-			} else if (game.getGameStatus() == GameStatus.CATS) {
-				displayBoard();
-				JOptionPane.showMessageDialog(null,
-						"Both X and O lost.\nThe game will reset");
-
-			}
-
-			if (quitButton == comp) {
-				int option = JOptionPane.showConfirmDialog(null,
-						"Are you sure?");
-				if (option == 0) {
-					System.exit(1);
-				}
-			}
-			if (undo == comp) {
-				if (game.undoIsValid()) {
-					game.undo();
-				} else {
-					JOptionPane.showMessageDialog(null, "Cannot undo.");
 				}
 
 			}
-			if (load == comp) {
-			}
-			if (save == comp) {
+
+			if (comp == undo) {
+				game.undo();
 			}
 
 			displayBoard();

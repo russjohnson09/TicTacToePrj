@@ -24,15 +24,21 @@ public class SuperTicTacToeGame {
 	}
 
 	public void select(int row, int col) {
-		moves.push(new Point(row, col));
+		if (isvalidmove(row, col)) {
+			moves.push(new Point(row, col));
 
-		if (player == 0) {
-			board[row][col] = Cell.O;
-		} else {
-			board[row][col] = Cell.X;
+			if (player == 0) {
+				board[row][col] = Cell.O;
+			} else {
+				board[row][col] = Cell.X;
+			}
+			nextPlayer();
 		}
-		nextPlayer();
 
+	}
+
+	public boolean isvalidmove(int row, int col) {
+		return board[row][col] == Cell.EMPTY;
 	}
 
 	public void undo() {
@@ -53,6 +59,7 @@ public class SuperTicTacToeGame {
 				board[row][col] = Cell.EMPTY;
 			}
 		}
+
 	}
 
 	private void nextPlayer() {
@@ -216,10 +223,6 @@ public class SuperTicTacToeGame {
 
 	public Cell[][] getBoard() {
 		return board;
-	}
-
-	public boolean isvalid(int row, int col) {
-		return board[row][col] == Cell.EMPTY;
 	}
 
 }
