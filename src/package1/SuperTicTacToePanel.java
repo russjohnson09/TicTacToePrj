@@ -120,6 +120,38 @@ public class SuperTicTacToePanel extends JPanel {
 		}
 	}
 
+	private void reset() {
+		String sizeinput = JOptionPane.showInputDialog(null,
+				"Enter in the size of the board: (Between 3 and 9 inclusive.");
+
+		try {
+			size = Integer.parseInt(sizeinput);
+			if (!(2 < size && size < 10)) {
+				throw new Throwable();
+			}
+		} catch (Throwable e) {
+			JOptionPane.showMessageDialog(null,
+					"Invalid input. Default 3 will be used.");
+			size = 3;
+		}
+
+		String player = JOptionPane.showInputDialog("Who moves first? X or O");
+
+		int playerint;
+
+		if (player.equalsIgnoreCase("X")) {
+			playerint = 1;
+		} else if (player.equalsIgnoreCase("O")) {
+			playerint = 0;
+		} else {
+			JOptionPane.showMessageDialog(null,
+					"Invalid input. Default X will be used.");
+			playerint = 1;
+
+		}
+		game = new SuperTicTacToeGame(playerint, size);
+	}
+
 	private class ButtonListener implements ActionListener {
 		public void actionPerformed(ActionEvent event) {
 
@@ -144,13 +176,16 @@ public class SuperTicTacToePanel extends JPanel {
 			if (game.getGameStatus() == GameStatus.X_WON) {
 				JOptionPane.showMessageDialog(null,
 						"X won.\nThe game will reset");
+				reset();
 			} else if (game.getGameStatus() == GameStatus.O_WON) {
 				JOptionPane.showMessageDialog(null,
 						"O won.\nThe game will reset");
+				reset();
 
 			} else if (game.getGameStatus() == GameStatus.CATS) {
 				JOptionPane.showMessageDialog(null,
 						"Both X and O lost.\nThe game will reset");
+				reset();
 
 			}
 

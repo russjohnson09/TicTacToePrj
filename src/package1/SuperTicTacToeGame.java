@@ -24,7 +24,6 @@ public class SuperTicTacToeGame {
 	}
 
 	public void select(int row, int col) {
-
 		moves.push(new Point(row, col));
 
 		if (player == 0) {
@@ -84,13 +83,96 @@ public class SuperTicTacToeGame {
 	}
 
 	private boolean isDiagonal(Cell pCell, int row, int col) {
-		// TODO Auto-generated method stub
-		return false;
+		if (isDiagonalUpperLeft(pCell, row, col)
+				|| isDiagonalUpperRight(pCell, row, col)) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	private boolean isDiagonalUpperLeft(Cell pCell, int row, int col) {
+		int count = 1;
+		while (true) {
+			row--;
+			col--;
+			if (row > -1 && col > -1 && board[row][col] == pCell) {
+				count++;
+			} else {
+				break;
+			}
+		}
+		row += count;
+		col += count;
+		while (true) {
+			row++;
+			col++;
+			if (row < size && col < size && board[row][col] == pCell) {
+				count++;
+			} else {
+				break;
+			}
+		}
+		if (count > 2) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	private boolean isDiagonalUpperRight(Cell pCell, int row, int col) {
+		int count = 1;
+		while (true) {
+			row++;
+			col--;
+			if (row < size && col > -1 && board[row][col] == pCell) {
+				count++;
+			} else {
+				break;
+			}
+		}
+		row -= count;
+		col += count;
+		while (true) {
+			row--;
+			col++;
+			if (row > -1 && col < size && board[row][col] == pCell) {
+				count++;
+			} else {
+				break;
+			}
+		}
+		if (count > 2) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	private boolean isVertical(Cell pCell, int row, int col) {
-		// TODO Auto-generated method stub
-		return false;
+		int count = 1;
+		while (true) {
+			row--;
+			if (row > -1 && board[row][col] == pCell) {
+				count++;
+			} else {
+				break;
+			}
+		}
+		row += count;
+		while (true) {
+			row++;
+			if (row < size && board[row][col] == pCell) {
+				count++;
+			} else {
+				break;
+			}
+		}
+		if (count > 2) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	private boolean isHorizontal(Cell pCell, int row, int col) {
