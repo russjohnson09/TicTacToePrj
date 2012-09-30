@@ -25,6 +25,7 @@ public class SuperTicTacToePanel extends JPanel implements java.io.Serializable 
 	private JButton undo;
 	private JButton load;
 	private JButton save;
+	private JButton ai;
 
 	private ImageIcon xIcon = new ImageIcon("x.png");
 	private ImageIcon oIcon = new ImageIcon("o.png");
@@ -87,11 +88,14 @@ public class SuperTicTacToePanel extends JPanel implements java.io.Serializable 
 		top.add(load);
 		save = new JButton("Save");
 		top.add(save);
+		ai = new JButton("AI");
+		top.add(ai);
 
 		quitButton.addActionListener(listener);
 		undo.addActionListener(listener);
 		load.addActionListener(listener);
 		save.addActionListener(listener);
+		ai.addActionListener(listener);
 
 		board = new JButton[size][size];
 
@@ -168,6 +172,10 @@ public class SuperTicTacToePanel extends JPanel implements java.io.Serializable 
 
 			if (comp == undo) {
 				game.undo();
+			}
+
+			if (comp == ai) {
+				game.select(game.computersmove());
 			}
 
 			if (comp == load) {

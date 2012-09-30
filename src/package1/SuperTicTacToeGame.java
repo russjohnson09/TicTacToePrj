@@ -46,6 +46,22 @@ public class SuperTicTacToeGame implements java.io.Serializable {
 
 	}
 
+	public void select(Point p) {
+		int row = p.x;
+		int col = p.y;
+		if (isvalidmove(row, col)) {
+			moves.push(p);
+
+			if (player == 0) {
+				board[row][col] = Cell.O;
+			} else {
+				board[row][col] = Cell.X;
+			}
+			nextPlayer();
+		}
+
+	}
+
 	public boolean isvalidmove(int row, int col) {
 		return board[row][col] == Cell.EMPTY;
 	}
@@ -237,4 +253,69 @@ public class SuperTicTacToeGame implements java.io.Serializable {
 		return board;
 	}
 
+	public Point computersmove() {
+		Point move;
+		move = winningmove();
+		if (move.x != -1) {
+			return move;
+		}
+		move = blockingmove();
+		if (move.x != -1) {
+			return move;
+		} else {
+			return dumbmove();
+		}
+
+	}
+
+	private Point dumbmove() {
+		for (int row = 0; row < size; row++) {
+			for (int col = 0; col < size; col++) {
+				if (isvalidmove(row, col)) {
+					select(row, col);
+					return new Point(row, col);
+				}
+			}
+		}
+		return new Point(-1, -1);
+	}
+
+	private Point winningmove() {
+		for (int row = 0; row < size; row++) {
+			for (int col = 0; col < size; col++) {
+				if (isvalidmove(row, col)) {
+					select(row, col);
+					if (getGameStatus() != GameStatus.IN_PROGRESS) {
+						undo();
+						return new Point(row, col);
+					} else {
+						undo();
+					}
+				}
+			}
+		}
+
+		return new Point(-1, -1);
+	}
+
+	private Point blockingmove() {
+		nextPlayer();
+		for (int row = 0; row < size; row++) {
+			for (int col = 0; col < size; col++) {
+				if (isvalidmove(row, col)) {
+					select(row, col);
+					if (getGameStatus() != GameStatus.IN_PROGRESS) {
+						undo();
+						nextPlayer();
+						return new Point(row, col);
+					} else {
+						undo();
+					}
+				}
+			}
+		}
+
+		nextPlayer();
+		return new Point(-1, -1);
+	}
 }
