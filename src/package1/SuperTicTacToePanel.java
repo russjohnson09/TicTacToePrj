@@ -4,6 +4,11 @@ import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -11,7 +16,7 @@ import javax.swing.JComponent;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-public class SuperTicTacToePanel extends JPanel {
+public class SuperTicTacToePanel extends JPanel implements java.io.Serializable {
 
 	private JButton[][] board;
 	private int size;
@@ -30,6 +35,8 @@ public class SuperTicTacToePanel extends JPanel {
 
 	private JPanel top;
 	private JPanel bottom;
+
+	ButtonListener listener = new ButtonListener();
 
 	SuperTicTacToePanel() {
 
@@ -81,7 +88,6 @@ public class SuperTicTacToePanel extends JPanel {
 		save = new JButton("Save");
 		top.add(save);
 
-		ButtonListener listener = new ButtonListener();
 		quitButton.addActionListener(listener);
 		undo.addActionListener(listener);
 		load.addActionListener(listener);
@@ -103,6 +109,24 @@ public class SuperTicTacToePanel extends JPanel {
 
 		game = new SuperTicTacToeGame(playerint, size);
 		iBoard = game.getBoard();
+
+	}
+
+	private void reload(SuperTicTacToeGame game) {
+
+		size = game.getSize();
+
+		board = new JButton[size][size];
+
+		for (int row = 0; row < size; row++) {
+			for (int col = 0; col < size; col++) {
+				board[row][col] = new JButton("");
+				bottom.add(board[row][col]);
+				board[row][col].addActionListener(listener);
+			}
+		}
+
+		this.revalidate();
 
 	}
 
@@ -143,6 +167,7 @@ public class SuperTicTacToePanel extends JPanel {
 			playerint = 1;
 		}
 		game = new SuperTicTacToeGame(playerint, size);
+		displayBoard();
 	}
 
 	private class ButtonListener implements ActionListener {
@@ -163,9 +188,60 @@ public class SuperTicTacToePanel extends JPanel {
 				game.undo();
 			}
 
+			if (comp == load) {
+				try {
+					FileInputStream fileIn = new FileInputStream("game.ser");
+					ObjectInputStream in = new ObjectInputStream(fileIn);
+					SuperTicTacToeGame game1 = (SuperTicTacToeGame) in
+							.readObject();
+					in.close();
+					fileIn.close();
+					reload(game1);
+				} catch (IOException i) {
+					i.printStackTrace();
+				} catch (ClassNotFoundException c) {
+
+				}
+			}
+
 			displayBoard();
+
+			if (comp == quitButton
+					&& JOptionPane.showConfirmDialog(null, "Are you sure?") == 0) {
+				System.exit(1);
+
+			}
+
+			if (comp == save) {
+				try {
+					FileOutputStream fileOut = new FileOutputStream("game.ser");
+					ObjectOutputStream out = new ObjectOutputStream(fileOut);
+					out.writeObject(game);
+					out.close();
+					fileOut.close();
+				} catch (IOException i) {
+					i.printStackTrace();
+				}
+			}
+
+			GameStatus g = game.getGameStatus();
+
+			if (g == GameStatus.X_WON) {
+				JOptionPane.showMessageDialog(null,
+						"X won.\nThe game will reset");
+			}
+			if (g == GameStatus.O_WON) {
+				JOptionPane.showMessageDialog(null,
+						"O won.\nThe game will reset");
+			}
+			if (g == GameStatus.CATS) {
+				JOptionPane.showMessageDialog(null,
+						"Both X and O lost.\nThe game will reset");
+			}
+
+			if (g != GameStatus.IN_PROGRESS) {
+				reset();
+			}
 		}
-
 	}
-
 }

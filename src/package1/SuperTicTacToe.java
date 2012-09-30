@@ -5,7 +5,9 @@ import javax.swing.JFrame;
 public class SuperTicTacToe {
 
 	public static void main(String[] args) {
+
 		JFrame frame = new JFrame("Super TicTacToe");
+
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		frame.getContentPane().add(new SuperTicTacToePanel());

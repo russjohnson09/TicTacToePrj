@@ -3,13 +3,22 @@ package package1;
 import java.awt.Point;
 import java.util.Stack;
 
-public class SuperTicTacToeGame {
+public class SuperTicTacToeGame implements java.io.Serializable {
 
 	private Cell[][] board;
+
 	private int player;
 	private int size;
 
 	private Stack<Point> moves = new Stack<Point>();
+
+	public int getPlayer() {
+		return player;
+	}
+
+	public int getSize() {
+		return size;
+	}
 
 	public Stack<Point> getMoves() {
 		return moves;
