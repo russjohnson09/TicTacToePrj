@@ -75,7 +75,7 @@ public class SuperTicTacToePanel extends JPanel implements java.io.Serializable 
 		}
 
 		top = new JPanel();
-		top.setLayout(new GridLayout(1, 4));
+		top.setLayout(new GridLayout(1, 5));
 		bottom = new JPanel();
 		bottom.setLayout(new GridLayout(size, size));
 
@@ -109,24 +109,6 @@ public class SuperTicTacToePanel extends JPanel implements java.io.Serializable 
 
 		game = new SuperTicTacToeGame(playerint, size);
 		iBoard = game.getBoard();
-
-	}
-
-	private void reload(SuperTicTacToeGame game) {
-
-		size = game.getSize();
-
-		board = new JButton[size][size];
-
-		for (int row = 0; row < size; row++) {
-			for (int col = 0; col < size; col++) {
-				board[row][col] = new JButton("");
-				bottom.add(board[row][col]);
-				board[row][col].addActionListener(listener);
-			}
-		}
-
-		this.revalidate();
 
 	}
 
@@ -196,7 +178,11 @@ public class SuperTicTacToePanel extends JPanel implements java.io.Serializable 
 							.readObject();
 					in.close();
 					fileIn.close();
-					reload(game1);
+					if (game1.getSize() == game.getSize()) {
+						game = game1;
+					} else {
+						JOptionPane.showMessageDialog(null, "Error.");
+					}
 				} catch (IOException i) {
 					i.printStackTrace();
 				} catch (ClassNotFoundException c) {
@@ -243,5 +229,6 @@ public class SuperTicTacToePanel extends JPanel implements java.io.Serializable 
 				reset();
 			}
 		}
+
 	}
 }

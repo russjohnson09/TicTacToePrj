@@ -76,28 +76,31 @@ public class SuperTicTacToeGame implements java.io.Serializable {
 	}
 
 	public GameStatus getGameStatus() {
-		Cell pCell;
-		int row = moves.lastElement().x;
-		int col = moves.lastElement().y;
-		if (player == 0) {
-			pCell = Cell.X;
-		} else {
-			pCell = Cell.O;
-
-		}
-		if (isHorizontal(pCell, row, col) || isVertical(pCell, row, col)
-				|| isDiagonal(pCell, row, col)) {
-			if (pCell == Cell.O) {
-				return GameStatus.O_WON;
+		if (moves.size() > 4) {
+			Cell pCell;
+			int row = moves.lastElement().x;
+			int col = moves.lastElement().y;
+			if (player == 0) {
+				pCell = Cell.X;
 			} else {
-				return GameStatus.X_WON;
-			}
-		} else if (boardIsFull()) {
-			return GameStatus.CATS;
+				pCell = Cell.O;
 
-		} else {
-			return GameStatus.IN_PROGRESS;
+			}
+			if (isHorizontal(pCell, row, col) || isVertical(pCell, row, col)
+					|| isDiagonal(pCell, row, col)) {
+				if (pCell == Cell.O) {
+					return GameStatus.O_WON;
+				} else {
+					return GameStatus.X_WON;
+				}
+			} else if (boardIsFull()) {
+				return GameStatus.CATS;
+
+			} else {
+				return GameStatus.IN_PROGRESS;
+			}
 		}
+		return GameStatus.IN_PROGRESS;
 	}
 
 	private boolean isDiagonal(Cell pCell, int row, int col) {
