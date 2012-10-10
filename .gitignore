@@ -1,7 +1,6 @@
 bin
 auto-git.py
 *~
-*.pdf
 *.out
 *.gz
 *.log
