@@ -93,48 +93,9 @@ public class SuperTicTacToePanel extends JPanel {
 	/*****************************************************************
 	 * Constructor for the SuperTicTacToePanel.
 	 *****************************************************************/
-	SuperTicTacToePanel() {
+	SuperTicTacToePanel(int size, int player) {
 
-		// Asks user for size of board. 3 <= board <= 9.
-		String sizeinput = JOptionPane.showInputDialog(null,
-				"Enter in the size of the board: (Between 3 and 9 inclusive.");
-
-		// Tries to parse integer provided by user. If not an integer or not in
-		// the range 3 to 9.
-		try {
-			size = Integer.parseInt(sizeinput);
-			if (!(2 < size && size < 10)) {
-				throw new Throwable();
-			}
-		} catch (Throwable e) {
-			JOptionPane.showMessageDialog(null,
-					"Invalid input. Default 3 will be used.");
-			size = 3;
-		}
-
-		// Asks who should move first.
-		String player = JOptionPane.showInputDialog("Who moves first? X or O");
-
-		// Holds 0 if O moves first and 1 if X moves first.
-		int playerint;
-
-		// Tries to check input for X or O. If cancel is pressed or invalid
-		// input, defaults to X.
-		try {
-			if (player.equalsIgnoreCase("X")) {
-				playerint = 1;
-			} else if (player.equalsIgnoreCase("O")) {
-				playerint = 0;
-			} else {
-				JOptionPane.showMessageDialog(null,
-						"Invalid input. Default X will be used.");
-				playerint = 1;
-			}
-		} catch (Throwable e) {
-			JOptionPane.showMessageDialog(null,
-					"Invalid input. Default X will be used.");
-			playerint = 1;
-		}
+		this.size = size;
 
 		// Starts up the JPanels
 		top = new JPanel();
@@ -191,8 +152,8 @@ public class SuperTicTacToePanel extends JPanel {
 		add(BorderLayout.CENTER, bottom);
 		add(BorderLayout.SOUTH, scoreboard);
 
-		// Sets up board with "playerint" starting and having size "size".
-		game = new SuperTicTacToeGame(playerint, size);
+		// Sets up board with "player" starting and having size "size".
+		game = new SuperTicTacToeGame(player, size);
 
 		// Sets up iBoard
 		iBoard = game.getBoard();
