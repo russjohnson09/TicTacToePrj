@@ -95,14 +95,12 @@ public class SuperTicTacToePanel extends JPanel {
 	 *****************************************************************/
 	SuperTicTacToePanel() {
 
-		/** Asks user for size of board. 3 <= board <= 9. */
+		// Asks user for size of board. 3 <= board <= 9.
 		String sizeinput = JOptionPane.showInputDialog(null,
 				"Enter in the size of the board: (Between 3 and 9 inclusive.");
 
-		/**
-		 * Tries to parse integer provided by user. If not an integer or not in
-		 * the range 3 to 9.
-		 */
+		// Tries to parse integer provided by user. If not an integer or not in
+		// the range 3 to 9.
 		try {
 			size = Integer.parseInt(sizeinput);
 			if (!(2 < size && size < 10)) {
@@ -114,16 +112,14 @@ public class SuperTicTacToePanel extends JPanel {
 			size = 3;
 		}
 
-		/** Asks who should move first. */
+		// Asks who should move first.
 		String player = JOptionPane.showInputDialog("Who moves first? X or O");
 
-		/** Holds 0 if O moves first and 1 if X moves first. */
+		// Holds 0 if O moves first and 1 if X moves first.
 		int playerint;
 
-		/**
-		 * Tries to check input for X or O. If cancel is pressed or invalid
-		 * input, defaults to X.
-		 */
+		// Tries to check input for X or O. If cancel is pressed or invalid
+		// input, defaults to X.
 		try {
 			if (player.equalsIgnoreCase("X")) {
 				playerint = 1;
@@ -140,7 +136,7 @@ public class SuperTicTacToePanel extends JPanel {
 			playerint = 1;
 		}
 
-		/** Starts up the JPanels */
+		// Starts up the JPanels
 		top = new JPanel();
 		top.setLayout(new GridLayout(1, 5));
 		bottom = new JPanel();
@@ -148,18 +144,16 @@ public class SuperTicTacToePanel extends JPanel {
 		scoreboard = new JPanel();
 		scoreboard.setLayout(new FlowLayout());
 
-		/** Sets scoreboard to zero. */
+		// Sets scoreboard to zero.
 		xwins = new JLabel("X: 0");
 		owins = new JLabel("O: 0");
 
-		/** Add xwins and owins to scoreboard. */
+		// Add xwins and owins to scoreboard.
 		scoreboard.add(xwins);
 		scoreboard.add(owins);
 
-		/**
-		 * Sets up and quitButton, undo, load, save, and ai and adds them to top
-		 * JPanel.
-		 */
+		// Sets up and quitButton, undo, load, save, and ai
+		// and adds them to top JPanel.
 		quitButton = new JButton("Quit");
 		top.add(quitButton);
 		undo = new JButton("Undo");
@@ -171,17 +165,17 @@ public class SuperTicTacToePanel extends JPanel {
 		ai = new JButton("AI");
 		top.add(ai);
 
-		/** Adds the listeners to the JButtons. */
+		// Adds the listeners to the JButtons.
 		quitButton.addActionListener(listener);
 		undo.addActionListener(listener);
 		load.addActionListener(listener);
 		save.addActionListener(listener);
 		ai.addActionListener(listener);
 
-		/** Instantiates the board using size. */
+		// Instantiates the board using size.
 		board = new JButton[size][size];
 
-		/** Instantiates each JButton in board and adds listener. */
+		// Instantiates each JButton in board and adds listener.
 		for (int row = 0; row < size; row++) {
 			for (int col = 0; col < size; col++) {
 				board[row][col] = new JButton();
@@ -190,22 +184,20 @@ public class SuperTicTacToePanel extends JPanel {
 			}
 		}
 
-		/**
-		 * Adds JPanels to SuperTicTacToePanel. this.setLayout() etc. is
-		 * implied.
-		 */
+		// Adds JPanels to SuperTicTacToePanel. this.setLayout() etc. is
+		// implied.
 		setLayout(new BorderLayout());
 		add(BorderLayout.NORTH, top);
 		add(BorderLayout.CENTER, bottom);
 		add(BorderLayout.SOUTH, scoreboard);
 
-		/** Sets up board with "playerint" starting and having size "size". */
+		// Sets up board with "playerint" starting and having size "size".
 		game = new SuperTicTacToeGame(playerint, size);
 
-		/** Sets up iBoard */
+		// Sets up iBoard
 		iBoard = game.getBoard();
 
-		/** Instantiates xIcon and oIcon of correct size. */
+		// Instantiates xIcon and oIcon of correct size.
 		xIcon = new ImageIcon(xIconOriginal.getImage().getScaledInstance(
 				600 / size, 600 / size, java.awt.Image.SCALE_SMOOTH));
 
@@ -271,10 +263,13 @@ public class SuperTicTacToePanel extends JPanel {
 	/*****************************************************************
 	 * Loads a new game and sets up the GUI based on this game.
 	 * 
+	 * @param game
+	 *            this.game is set to game and then used to reconstruct GUI
+	 * 
 	 * @return none
 	 *****************************************************************/
-	private void reload(SuperTicTacToeGame game1) {
-		game = game1;
+	private void reload(SuperTicTacToeGame game) {
+		this.game = game;
 		SuperTicTacToeGame.setOwins(game.getOwin());
 		SuperTicTacToeGame.setXwins(game.getXwin());
 
@@ -314,6 +309,9 @@ public class SuperTicTacToePanel extends JPanel {
 
 		/*****************************************************************
 		 * Takes appropriate action based on the JButton pressed.
+		 * 
+		 * @param event
+		 *            holds the event that took place
 		 * 
 		 * @return none
 		 *****************************************************************/
@@ -366,10 +364,8 @@ public class SuperTicTacToePanel extends JPanel {
 				}
 			}
 
-			/**
-			 * Board is displayed after all of board's buttons and teh undo, ai,
-			 * and load buttons have been checked.
-			 */
+			// Board is displayed after all of board's buttons and the undo, ai,
+			// and load buttons have been checked.
 			displayBoard();
 
 			if (comp == quitButton
@@ -400,7 +396,7 @@ public class SuperTicTacToePanel extends JPanel {
 				}
 			}
 
-			/** GameStatus is checked last after the move has been made. */
+			// GameStatus is checked last after the move has been made.
 			GameStatus g = game.getGameStatus();
 
 			if (g == GameStatus.X_WON) {
@@ -416,7 +412,7 @@ public class SuperTicTacToePanel extends JPanel {
 						"Both X and O lost.\nThe game will reset");
 			}
 
-			/** Finally if the game is not in progress it is reset. */
+			// Finally if the game is not in progress it is reset.
 			if (g != GameStatus.IN_PROGRESS) {
 				reset();
 			}

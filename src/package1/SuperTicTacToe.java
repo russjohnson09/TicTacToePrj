@@ -16,6 +16,9 @@ public class SuperTicTacToe {
 	/*****************************************************************
 	 * The main method starts up the GUI application.
 	 * 
+	 * @param args
+	 *            arguments that main takes
+	 * 
 	 * @return none
 	 *****************************************************************/
 	public static void main(String[] args) {

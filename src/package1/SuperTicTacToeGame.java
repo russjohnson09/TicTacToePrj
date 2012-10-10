@@ -53,7 +53,7 @@ public class SuperTicTacToeGame implements java.io.Serializable {
 	/*****************************************************************
 	 * Get method for player.
 	 * 
-	 * @return player
+	 * @return player player for game
 	 *****************************************************************/
 	public int getPlayer() {
 		return player;
@@ -62,7 +62,7 @@ public class SuperTicTacToeGame implements java.io.Serializable {
 	/*****************************************************************
 	 * Get method for size.
 	 * 
-	 * @return size
+	 * @return size the size of board
 	 *****************************************************************/
 	public int getSize() {
 		return size;
@@ -71,7 +71,7 @@ public class SuperTicTacToeGame implements java.io.Serializable {
 	/*****************************************************************
 	 * Get method for moves.
 	 * 
-	 * @return moves
+	 * @return moves this contains all moves taken
 	 *****************************************************************/
 	public Stack<Point> getMoves() {
 		return moves;
@@ -80,7 +80,7 @@ public class SuperTicTacToeGame implements java.io.Serializable {
 	/*****************************************************************
 	 * Get method for xwin.
 	 * 
-	 * @return xwin
+	 * @return xwin this mirrors the static variable xwins
 	 *****************************************************************/
 	public int getXwin() {
 		return xwin;
@@ -89,7 +89,7 @@ public class SuperTicTacToeGame implements java.io.Serializable {
 	/*****************************************************************
 	 * Get method for owin.
 	 * 
-	 * @return owin
+	 * @return owin this mirrors the static varibale owins
 	 *****************************************************************/
 	public int getOwin() {
 		return owin;
@@ -98,7 +98,7 @@ public class SuperTicTacToeGame implements java.io.Serializable {
 	/*****************************************************************
 	 * Get method for xwins.
 	 * 
-	 * @return xwins
+	 * @return xwins total wins for X
 	 *****************************************************************/
 	public static int getXwins() {
 		return xwins;
@@ -107,7 +107,7 @@ public class SuperTicTacToeGame implements java.io.Serializable {
 	/*****************************************************************
 	 * Get method for owins.
 	 * 
-	 * @return owins
+	 * @return owins total wins for O
 	 *****************************************************************/
 	public static int getOwins() {
 		return owins;
@@ -115,6 +115,9 @@ public class SuperTicTacToeGame implements java.io.Serializable {
 
 	/*****************************************************************
 	 * Set method for xwins.
+	 * 
+	 * @param xwins
+	 *            set total wins for X (xwins)
 	 * 
 	 * @return none
 	 *****************************************************************/
@@ -125,6 +128,9 @@ public class SuperTicTacToeGame implements java.io.Serializable {
 	/*****************************************************************
 	 * Set method for owins.
 	 * 
+	 * @param set
+	 *            total wins for O (owins)
+	 * 
 	 * @return none
 	 *****************************************************************/
 	public static void setOwins(int owins) {
@@ -133,6 +139,12 @@ public class SuperTicTacToeGame implements java.io.Serializable {
 
 	/*****************************************************************
 	 * Selects a space on the board to move and sets it if valid.
+	 * 
+	 * @param row
+	 *            select row of board
+	 * 
+	 * @param col
+	 *            select column of board
 	 * 
 	 * @return none
 	 *****************************************************************/
@@ -152,6 +164,9 @@ public class SuperTicTacToeGame implements java.io.Serializable {
 
 	/*****************************************************************
 	 * Selects a space on the board to move and sets it if valid.
+	 * 
+	 * @param p
+	 *            selects point of board
 	 * 
 	 * @return none
 	 *****************************************************************/
@@ -174,7 +189,13 @@ public class SuperTicTacToeGame implements java.io.Serializable {
 	/*****************************************************************
 	 * Returns a boolean for whether or not a move is valid.
 	 * 
-	 * @return boolean
+	 * @param row
+	 *            selects row of board
+	 * 
+	 * @param col
+	 *            selects column of board
+	 * 
+	 * @return boolean returns True if valid move else otherwise
 	 *****************************************************************/
 	public boolean isvalidmove(int row, int col) {
 		return board[row][col] == Cell.EMPTY;
@@ -196,7 +217,7 @@ public class SuperTicTacToeGame implements java.io.Serializable {
 	/*****************************************************************
 	 * Returns a boolean for whether or not undo is valid.
 	 * 
-	 * @return boolean
+	 * @return boolean returns true if valid undo false otherwise
 	 *****************************************************************/
 	public boolean undoIsValid() {
 		return !(moves.isEmpty());
@@ -229,7 +250,7 @@ public class SuperTicTacToeGame implements java.io.Serializable {
 	 * Returns the status of the game and increment owins or xwins if either
 	 * wins.
 	 * 
-	 * @return GameStatus
+	 * @return GameStatus Status of the game.
 	 *****************************************************************/
 	public GameStatus getGameStatus() {
 		if (moves.size() > 4) {
@@ -264,7 +285,7 @@ public class SuperTicTacToeGame implements java.io.Serializable {
 	/*****************************************************************
 	 * Checks for a three in a row diagonally.
 	 * 
-	 * @return boolean
+	 * @return boolean true if diagonal is found false otherwise
 	 *****************************************************************/
 	private boolean isDiagonal(Cell pCell, int row, int col) {
 		return (isDiagonalUpperLeft(pCell, row, col) || isDiagonalUpperRight(
@@ -274,7 +295,7 @@ public class SuperTicTacToeGame implements java.io.Serializable {
 	/*****************************************************************
 	 * Checks for a three in a row diagonally from the upper left.
 	 * 
-	 * @return boolean
+	 * @return boolean true if diagonal is found false otherwise
 	 *****************************************************************/
 	private boolean isDiagonalUpperLeft(Cell pCell, int row, int col) {
 		int count = 1;
@@ -308,7 +329,7 @@ public class SuperTicTacToeGame implements java.io.Serializable {
 	/*****************************************************************
 	 * Checks for a three in a row diagonally from the upper right.
 	 * 
-	 * @return boolean
+	 * @return boolean true if diagonal is found false otherwise
 	 *****************************************************************/
 	private boolean isDiagonalUpperRight(Cell pCell, int row, int col) {
 		int count = 1;
@@ -342,7 +363,7 @@ public class SuperTicTacToeGame implements java.io.Serializable {
 	/*****************************************************************
 	 * Checks for a three in a row vertically.
 	 * 
-	 * @return boolean
+	 * @return boolean true if vertical is found false otherwise
 	 *****************************************************************/
 	private boolean isVertical(Cell pCell, int row, int col) {
 		int count = 1;
@@ -373,7 +394,7 @@ public class SuperTicTacToeGame implements java.io.Serializable {
 	/*****************************************************************
 	 * Checks for a three in a row horizontally.
 	 * 
-	 * @return boolean
+	 * @return boolean true if horizontal is found false otherwise
 	 *****************************************************************/
 	private boolean isHorizontal(Cell pCell, int row, int col) {
 		int count = 1;
@@ -404,7 +425,7 @@ public class SuperTicTacToeGame implements java.io.Serializable {
 	/*****************************************************************
 	 * Checks for the board being full.
 	 * 
-	 * @return boolean
+	 * @return boolean true if board is full false otherwise
 	 *****************************************************************/
 	private boolean boardIsFull() {
 		for (Cell[] row : board) {
@@ -420,7 +441,7 @@ public class SuperTicTacToeGame implements java.io.Serializable {
 	/*****************************************************************
 	 * Get method for board.
 	 * 
-	 * @return Cell[][]
+	 * @return board board for game
 	 *****************************************************************/
 	public Cell[][] getBoard() {
 		return board;
@@ -429,7 +450,7 @@ public class SuperTicTacToeGame implements java.io.Serializable {
 	/*****************************************************************
 	 * The computer makes a move.
 	 * 
-	 * @return Point
+	 * @return Point point on the board
 	 *****************************************************************/
 	public Point computersmove() {
 		Point move;
@@ -449,7 +470,7 @@ public class SuperTicTacToeGame implements java.io.Serializable {
 	/*****************************************************************
 	 * Returns a point that is the first available move.
 	 * 
-	 * @return Point
+	 * @return Point point on the board
 	 *****************************************************************/
 	private Point dumbmove() {
 		for (int row = 0; row < size; row++) {
@@ -466,7 +487,7 @@ public class SuperTicTacToeGame implements java.io.Serializable {
 	/*****************************************************************
 	 * Finds a winning move.
 	 * 
-	 * @return Point
+	 * @return Point point on the board
 	 *****************************************************************/
 	private Point winningmove() {
 		for (int row = 0; row < size; row++) {
@@ -490,7 +511,7 @@ public class SuperTicTacToeGame implements java.io.Serializable {
 	 * Finds a blocking move. This is a move that if not taken could cause the
 	 * opponent to win in their next move.
 	 * 
-	 * @return Point
+	 * @return Point point on the board
 	 *****************************************************************/
 	private Point blockingmove() {
 		nextPlayer();
@@ -504,7 +525,7 @@ public class SuperTicTacToeGame implements java.io.Serializable {
 	 * Returns the status of the game. Same as getGameStatus but does not
 	 * increment the wins. Needed for computersmove.
 	 * 
-	 * @return GameStatus
+	 * @return GameStatus status of the game
 	 *****************************************************************/
 	public GameStatus getGameStatusNoInc() {
 		if (moves.size() > 4) {

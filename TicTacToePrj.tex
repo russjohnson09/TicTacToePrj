@@ -1,0 +1,95 @@
+\documentclass[11pt,openany]{book}
+
+\usepackage{color}
+\usepackage{xcolor}
+\usepackage{listings}
+\usepackage{courier}
+\usepackage{changepage}
+
+%==============================
+%Math Related Packages
+\usepackage{amsmath, amsfonts, amssymb, amsthm, xfrac, mathtools}
+%==============================
+\usepackage{framed}
+%==============================
+\usepackage{pdflscape}
+%==============================
+% For more complex numbering
+%\usepackage{enumitem}
+\usepackage{enumerate}
+\usepackage{mdwlist}
+%==============================
+%For Importing inkscape svg files with latex font.
+\usepackage{import}
+%==============================
+%Table Related
+\usepackage{multirow, multicol, tabularx, longtable}
+\usepackage[tableposition=below]{caption}
+\captionsetup[longtable]{skip=1em}
+%==============================
+%Colors and Graphics
+\usepackage{color}
+\usepackage{graphicx}
+%Hyperref
+\usepackage[unicode=true, pdfusetitle,
+ bookmarks=true,bookmarksnumbered=false,bookmarksopen=false,
+ breaklinks=false,pdfborder={0 0 0},backref=false,colorlinks=false]
+ {hyperref}
+\usepackage{cite}
+\usepackage{makeidx}
+\usepackage{tocloft}
+\usepackage{tikz}
+%==============================
+
+% Setup for listings
+%==============================
+\definecolor{javared}{rgb}{0.6,0,0} % for strings
+\definecolor{javagreen}{rgb}{0.25,0.5,0.35} % comments
+\definecolor{javapurple}{rgb}{0.5,0,0.35} % keywords
+\definecolor{javadocblue}{rgb}{0.25,0.35,0.75} % javadoc
+
+\lstset{language=java,
+basicstyle=\small\ttfamily,
+xleftmargin=-2cm,
+keywordstyle=\color{javapurple}\bfseries,
+stringstyle=\color{javared},
+commentstyle=\color{javagreen},
+morecomment=[s][\color{javadocblue}]{/**}{*/},
+tabsize=4,
+showspaces=false,
+showstringspaces=false}
+%==============================
+
+%==============================
+\title{{\bf Super Tic-Tac-Toe Project}}
+\author{Russ Johnson\\
+Grand Valley State University\\
+Allendale, MI\\
+\url{russjohnson09@gmail.com}\\
+}
+\date{\today}
+%==============================
+
+\begin{document}
+\maketitle 
+\mainmatter
+
+\lstinputlisting[caption= SuperTicTacToe.java, language=java]{./src/package1/SuperTicTacToe.java}
+
+\newpage
+
+\lstinputlisting[caption=SuperTicTacToeGame.java, language=java]{./src/package1/SuperTicTacToeGame.java}
+
+\newpage
+
+\lstinputlisting[caption= SuperTicTacToePanel.java, language=java]{./src/package1/SuperTicTacToePanel.java}
+
+\newpage
+
+\lstinputlisting[caption= GameStatus.java, language=java]{./src/package1/GameStatus.java}
+
+\newpage
+
+\lstinputlisting[caption= Cell.java, language=java]{./src/package1/Cell.java}
+
+\end{document}
